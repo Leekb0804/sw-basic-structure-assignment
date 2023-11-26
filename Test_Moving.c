@@ -242,8 +242,8 @@ int CheckNPCState()
 	////////////Ãß°¡
 	if (checkObject_boom(npcCurPosX, npcCurPosY) == 1)
 	{
-		SetCurrentCursorPos(3, 16);
-		//printf("NPC down    Game Over!\n");
+		SetCurrentCursorPos(3, HEIGHT + GBOARD_ORIGIN_Y);
+		printf("NPC down!\n");
 		return (1);
 	}
 	if (checkPlayer_Killed_NPC(npcCurPosX, npcCurPosY, PlayerCurPosX, PlayerCurPosY) == 1) {

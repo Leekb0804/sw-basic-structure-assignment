@@ -76,4 +76,9 @@ void insert_map_box_struct(Map_box_head* head, int x, int y);
 void remove_generate_item_all_map_box_struct(Map_box_head* head);
 
 
+void set_mapModel2();
+void set_mapModel3();
+
+
+
 #endif

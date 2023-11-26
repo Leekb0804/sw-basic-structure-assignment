@@ -25,6 +25,10 @@ extern unsigned long long NPC_current_Time;
 
 extern Map_box_head* map_box_head;             //폭탄이 모두 터진 후 박스를 없애기 위한 맵 박스 구조체 배열의 헤드 선언
 
+extern int mapModel[HEIGHT][WIDTH];
+extern int mapModel2[HEIGHT][WIDTH];
+extern int mapModel3[HEIGHT][WIDTH];
+
 int main(void)
 {
 
@@ -37,15 +41,7 @@ int main(void)
 	player_item_range = 1;
 
 
-	generateMap();
-	drawMaps();
-
-	PlayerState = 1;
-	PlayerCurPosX = get_Player_starting_point_x();
-	PlayerCurPosY = 8;  //get_Player_starting_point_y();
-
-	npcCurPosX = 2 * 2;
-	npcCurPosY = 2;
+	//generateMap();
 
 	bombHead = (BombHead*)malloc(sizeof(bombHead));
 	bombHead->next = NULL;
@@ -55,32 +51,78 @@ int main(void)
 
 	map_box_head = generate_map_box_head();
 
+
 	NPC_current_Time = 0;
 
-	while (1)
+	for (int game_round = 0; game_round < 3; game_round++)
 	{
-		current_game_time = clock();
 
-		TimeCheck();
-		remove_generate_item_all_map_box_struct(map_box_head);
-		TimeCheck_BOOM();
 
-		if (CheckPlayerState() == 1)
-			break;
-		if (CheckNPCState() == 1)
-			break;
+		PlayerState = 1;
+		PlayerCurPosX = arrX_to_cursorX(WIDTH - 3);		//get_Player_starting_point_x();
+		PlayerCurPosY = arrY_to_cursorY(HEIGHT - 3);  //get_Player_starting_point_y();
 
-		PlayerControl();
+		npcCurPosX = 2 * 2;
+		npcCurPosY = 2;
 
-		if (CheckPlayerState() == 1)
-			break;
 
-		NpcMoving();
+		if (game_round == 1)
+		{
+			bombHead->next = NULL;
+			boomhead->next = NULL;
+			TimeCheck();
+			TimeCheck_BOOM();
+			set_mapModel2();
+			SetCurrentCursorPos(3, HEIGHT + GBOARD_ORIGIN_Y);
+			printf("                      \n");
+			printf("                         \n");
+		}
+		else if (game_round == 2)
+		{
+			bombHead->next = NULL;
+			boomhead->next = NULL;
+			TimeCheck();
+			TimeCheck_BOOM();
+			set_mapModel3();
+			SetCurrentCursorPos(3, HEIGHT + GBOARD_ORIGIN_Y);
+			printf("                      \n");
+			printf("                         \n");
+		}
 
-		if (CheckNPCState() == 1)
-			break;
+		drawMaps();
 
-		//print_npc_x_y();
+		while (1)
+		{
+			current_game_time = clock();
+
+			TimeCheck();
+			remove_generate_item_all_map_box_struct(map_box_head);
+			TimeCheck_BOOM();
+
+			if (CheckPlayerState() == 1)
+				Sleep(10000);
+			if (CheckNPCState() == 1)
+			{
+				printf("next stage!!!\n");
+				Sleep(3000);
+				break;
+			}
+			PlayerControl();
+
+			if (CheckPlayerState() == 1)
+				Sleep(10000);
+
+			NpcMoving();
+
+			if (CheckNPCState() == 1)
+			{
+				printf("next stage!!!\n");
+				Sleep(3000);
+				break;
+			}
+
+			//print_npc_x_y();
+		}
 	}
 
 	while (1)

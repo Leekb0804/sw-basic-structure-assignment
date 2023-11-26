@@ -1,8 +1,8 @@
 #ifndef __DEFINE_STATE_H__
 #define __DEFINE_STATE_H__
 
-#define WIDTH 11
-#define HEIGHT 11
+#define WIDTH 17
+#define HEIGHT 17
 
 #define GBOARD_ORIGIN_X 0
 #define GBOARD_ORIGIN_Y 0

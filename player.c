@@ -156,7 +156,7 @@ int CheckPlayerState()
 	////////////Ãß°¡
 	if (checkObject_boom(PlayerCurPosX, PlayerCurPosY) == 1)
 	{
-		SetCurrentCursorPos(3, 16);
+		SetCurrentCursorPos(3, HEIGHT + GBOARD_ORIGIN_Y);
 		printf("Player down    Game Over!\n");
 		return (1);
 	}
